@@ -1,0 +1,49 @@
+#include <iostream>
+#include <map>
+
+int main() {
+    std::map<std::string, int> calorieDatabase; // Map to store food items and their calorie values
+    calorieDatabase["apple"] = 52;
+    calorieDatabase["banana"] = 89;
+    calorieDatabase["pizza"] = 285;
+    calorieDatabase["hamburger"] = 250;
+    calorieDatabase["salad"] = 100;
+
+    int totalCalories = 0;
+
+    std::cout << "Menu:" << std::endl;
+    for (const auto& item : calorieDatabase) {
+        std::cout << item.first << " (" << item.second << " calories)" << std::endl;
+    }
+
+    while (true) {
+        std::string foodItem;
+        int servings;
+
+        // Ask the user to input a food item
+        std::cout << "Enter a food item (or type 'exit' to finish): ";
+        std::cin >> foodItem;
+
+        // Check if the user wants to exit
+        if (foodItem == "exit") {
+            break;
+        }
+
+        // Look up the food item in the database
+        if (calorieDatabase.find(foodItem) != calorieDatabase.end()) {
+            // Ask the user for the number of servings
+            std::cout << "Enter the number of servings: ";
+            std::cin >> servings;
+
+            // Calculate and add the total calories for the specified servings
+            totalCalories += calorieDatabase[foodItem] * servings;
+            std::cout << foodItem << " added. Total calories: " << totalCalories << " calories" << std::endl;
+        } else {
+            std::cout << "Food item not found in the database. Please choose from the menu." << std::endl;
+        }
+    }
+
+    std::cout << "Total calories consumed: " << totalCalories << " calories" << std::endl;
+
+    return 0;
+}
